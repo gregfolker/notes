@@ -298,3 +298,6 @@ bd9dbf5aae1a3862dd1526723246b20206e5fc37
 ```
 
 Note the `-n` option on the `echo` command is needed to prevent adding a newline character to the input stream
+
+## Sources
+   - [Pro Git Book - Chapter 10](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain)
