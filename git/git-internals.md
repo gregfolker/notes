@@ -1,5 +1,4 @@
 # Git Internals
----
 ## Overview
 Git is fundamentally a **content-addressable filesystem** with a version control system user interface written on top of it
 
