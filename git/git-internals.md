@@ -191,7 +191,6 @@ $ git cat-file -p 3c4e9cd789d88d8d89c1073707c3585e41b0e614
 `
 
 ## Commit Objects
----
 At this point, we now have three separate trees that represent different snapshots of the project we want to track. These snapshots
 can be accessed using their respective hashes at any point, but this isn't very practical from an end-user standpoint. Not to mention
 we still do not have any information about who/what/when/why these snapshots were created. This is what **commit objects** are for
@@ -262,7 +261,6 @@ Date:   Fri May 22 18:09:34 2009 -0700
 `
 
 ## Object Storage
----
 There is a header stored with every object you commit to your Git object database. Let's see how a blob object is stored by
 interactively using the Ruby scripting language
 
