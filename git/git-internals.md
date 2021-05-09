@@ -1,11 +1,11 @@
 # Git Internals
 ## Table of Contents
 1. [Overview](#overview)
-2. [Plumbing and Porcelain](#plumbing and porcelain)
-3. [Git Objects](#git objects)
-4. [Tree Objects](#tree objects)
-5. [Commit Objects](#commit objects)
-6. [Object Storage](#object storage)
+2. [Plumbing and Porcelain](#plumbing-and-porcelain)
+3. [Git Objects](#git-objects)
+4. [Tree Objects](#tree-objects)
+5. [Commit Objects](#commit-objects)
+6. [Object Storage](#object-storage)
 ## Overview
 Git is fundamentally a **content-addressable filesystem** with a version control system user interface written on top of it
 
