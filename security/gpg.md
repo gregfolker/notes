@@ -159,7 +159,7 @@ public key to verify the contents of the *original* file
 $ gpg --verify message.txt.sig message.txt
 gpg: Signature made Thu 13 May 2021 10:10:34 AM CDT
 gpg:                using RSA key A6FB80180D3B4D598E12574ABD04A8B526FBB695
-gpg: Good signature from "Gregory Folker <gregfolker.dev@gmail.com>" [ultimate]iiiz
+gpg: Good signature from "Gregory Folker <gregfolker.dev@gmail.com>" [ultimate]
 ```
 
 ## Encrypting Files
