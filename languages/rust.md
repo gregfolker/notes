@@ -24,9 +24,9 @@ Formatting:
    2. 4-space indents are preferred to tabs
 
 Naming:
-   1. *snake_case* should be used for function and variable names
-   2. *SCREAMING_SNAKE_CASE* should be used for static and constant variable names
-   3. *CamelCase* should be used for "type-level" constructs
+   1. `snake_case` should be used for function and variable names
+   2. `SCREAMING_SNAKE_CASE` should be used for static and constant variable names
+   3. `CamelCase` should be used for "type-level" constructs
    4. `T` should be used for type parameters
    5. Lifetime annotations should be short and lowercase, e.g., `'a`
 
