@@ -7,7 +7,11 @@
    * [Data Types](#data-types)
    * [Functions](#functions)
    * [Control Flow](#control-flow)
-4. [Sources](#sources)
+4. [Ownership](#ownership)
+   * [Scope](#scope)
+   * [The Heap](#the-heap)
+   * [Memory and Allocation](#memory-and-allocation)
+5. [Sources](#sources)
 
 ## Overview
 Rust is a multi-paradigm programming language designed for performance and safety
@@ -138,6 +142,123 @@ Just like C or C++, Functions are pervasive in Rust. New functions can be declar
 Control flow is simply deciding whether or not to run some code depending on a certain condition. The most
 common control flow constructs in Rust are `if` expressions and loops
 
+## Ownership
+The central feature of Rust is **ownership**
+
+All programs have to be able to manage the way they use memory at runtime. Some languages, such as Java, use a
+garbage collector. Other languages, such as C, require the programmer to explicitly allocate and free the memory
+
+Rust offers a unique third approach to memory management; Memory is managed through a system of ownership with a
+set of rules that the compiler checks at compile time
+
+The 'Rules of Ownership' in Rust are as follows:
+
+   - Each value in Rust has a variable that is called the **owner**
+   - There can only be **one** owner at a time
+   - When the owner goes out of scope the value is **dropped**
+
+### Scope
+A scope is the range within a program for which an item is considered *valid*. Variables are
+valid from the point at which they are declared within a scope until the scope ends
+
+```
+fn main() {
+   let s = "hello";
+
+   // --snip--
+
+} // scope ends
+```
+
+Here, the variable `s` is declared as a string literal that stores the static value `hello`.
+`s` will remain *valid* until the scope ends, which in this example is at the end of `main()`.
+In other words, you cannot reference `s` outside the body of `main()`
+
+This isn't really any different from how other programming languages handle scopes and variables.
+Nobody should expect to be able to access `s` outside of the `main()` scope here, but keep in
+mind that `s` was **statically** defined in this example and thus placed on the program stack.
+Both the *contents* and the *size* of `s` are known by the compiler at compile time
+
+So, what changes if we use **dynamically** allocated memory for `s` instead? That is, use memory
+from the heap instead of the stack
+
+### The Heap
+In the case of static memory, the data held by a variable is hardcoded directly into the final
+executable. This can be done because both the contents and the size of the variable are known by
+the compiler at compile time, so the compiler is able to allocate the necessary space required on
+the program stack to store the variable
+
+However, if the size of the data stored inside of a variable can *change* at runtime, the data cannot
+be put on the stack because the compiler has no way of knowing how much space might be required for it. This is why
+we need *dynamic memory allocation*
+
+The following conditions must be met in order to support a *mutable* and *growable* piece of data on the heap:
+
+   1. The memory must be requested from the memory allocator at runtime
+   2. The memory must be given back to the allocator at runtime when you are finished using it
+
+These two conditions largely boil down to the same universal point in programming: You must pair **exactly** one `allocate()` with
+**exactly** one `free()`
+
+Rust takes a unique approach to ensure this: *Memory is automatically freed once the variable that owns it goes out of scope*
+
+#### The `String` Type
+In order to illustrate how dynamic memory allocations are handled in Rust, the following examples of ownership and scope
+focus on a common data type found in Rust; the `String` type
+
+   - The `String` type is dynamic and allocated on the heap
+   - Memory for a `String` can be allocated from a string literal using the `from()` function
+   - Unlike string literals, a `String` *can* be mutated (That is, be declared with the `mut` keyword)
+
+An example of memory allocation in Rust using `String` is as follows
+
+```
+let s = String::from("hello");
+```
+
+This creates a mutable `String` with the initial contents "hello" and names it `s`. It is important to note that `s` is **not**
+a pointer. `s` is just a mutable string object that lives on the heap. In fact, a `String` is made up of three distinct parts:
+
+   1. A pointer, which is a reference to the buffer that holds the data
+   2. A length, which is the number of bytes *currently* stored in the buffer
+   3. A capacity, which is the *total* size of the buffer in bytes
+
+These elements are stored on the program stack. Note that the length will always be less than or equal to the capacity. If a
+`String` has enough capacity, adding elements to it will not allocate any additional memory for those elements since it already exists
+
+### Memory and Allocation
+Now, let's take the example from before with a string literal and re-write it to use a `String` type instead. We will also add
+an additional scope within `main()` to further illustrate the lifetime of the memory we allocate and how Rust knows exactly when
+to free that memory
+
+```
+func main() {
+   // --snip--
+
+   {
+      // Allocate memory for `s`
+      let s = String::from("hello");
+
+      // do stuff with `s`
+
+   } // end of scope; `drop()` is automatically called and `s` is no longer valid
+}
+```
+
+As soon as the scope ends a special function `drop()` is automatically called and frees the memory. This may seem simple now,
+but this pattern has a *profound* effect on the way that Rust code is written
+
+What if we want to allow multiple variables to use memory we have allocated on the heap?
+
+```
+let s1 = String::from("hello");
+let s2 = s1;
+```
+
+When we assign `s1` to `s2` we copy the `String` data from the stack into `s2`, **not** the actual data on the heap that the `String`
+refers to
+
 ## Sources
    - [The Rust Programming Language](https://doc.rust-lang.org/stable/book)
    - [Rustc](https://doc.rust-lang.org/rustc)
+   - [A Guide to Porting C/C++ to Rust](https://locka99.gitbooks.io/a-guide-to-porting-c-to-rust/content/)
