@@ -262,3 +262,4 @@ When we assign `s1` to `s2` we copy the `String` data from the *stack* into `s2`
    - [The Rust Programming Language](https://doc.rust-lang.org/stable/book)
    - [Rustc](https://doc.rust-lang.org/rustc)
    - [A Guide to Porting C/C++ to Rust](https://locka99.gitbooks.io/a-guide-to-porting-c-to-rust/content/)
+   - [The Rust Standard Library](https://doc.rust-lang.org/std)
