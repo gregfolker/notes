@@ -216,15 +216,16 @@ An example of memory allocation in Rust using `String` is as follows
 let s = String::from("hello");
 ```
 
-This creates a mutable `String` with the initial contents "hello" and names it `s`. It is important to note that `s` is **not**
-a pointer. `s` is just a mutable string object that lives on the heap. In fact, a `String` is made up of three distinct parts:
+This creates a mutable `String` with the initial contents `hello` and names it `s`. It is important to note that `s` is not *just*
+a pointer; `s` is actually made up of three distinct parts:
 
    1. A pointer, which is a reference to the buffer that holds the data
    2. A length, which is the number of bytes *currently* stored in the buffer
-   3. A capacity, which is the *total* size of the buffer in bytes
+   3. A capacity, which is the *total* size of the buffer, in bytes
 
-These elements are stored on the program stack. Note that the length will always be less than or equal to the capacity. If a
-`String` has enough capacity, adding elements to it will not allocate any additional memory for those elements since it already exists
+These parts are stored on the program stack inside of the variable `s`. Note that the length will always be less than or
+equal to the capacity. If a `String` has enough capacity, adding elements to it will not allocate any additional memory
+for those elements since they don't need it
 
 ### Memory and Allocation
 Now, let's take the example from before with a string literal and re-write it to use a `String` type instead. We will also add
@@ -255,8 +256,7 @@ let s1 = String::from("hello");
 let s2 = s1;
 ```
 
-When we assign `s1` to `s2` we copy the `String` data from the stack into `s2`, **not** the actual data on the heap that the `String`
-refers to
+When we assign `s1` to `s2` we copy the `String` data from the *stack* into `s2`, **not** the actual data on the heap
 
 ## Sources
    - [The Rust Programming Language](https://doc.rust-lang.org/stable/book)
