@@ -727,7 +727,7 @@ program if `s` is allowed to be modified
 
 Having to worry about `idx` getting out of sync with the data in `s` is tedious and
 error prone. And even if `s` is immutable, indexing directly into a `String` is not
-supported in Rust. The solution to this problem is to use*string slices* instead
+supported in Rust. The solution to this problem is to use **string slices** instead
 
 #### String Slices
 ```
