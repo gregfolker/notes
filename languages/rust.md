@@ -262,7 +262,7 @@ let s2 = s1;
 When we assign `s1` to `s2` we copy the `String` data from the *stack* into `s2`, **not** the actual data on the heap. This makes
 sense, because copying heap data into new variables would be extremely expensive in terms of runtime performance
 
-![Reference Copy in Rust](images/rust/reference_copy.svg)
+![Reference Copy in Rust](/images/rust/reference_copy.svg)
 
 But if Rust automatically the calls `drop()` function to clean up memory at the end of the scope, wouldn't this lead to a
 *double free* error now that two variables are referencing the same memory in the same scope? It absolutely would, which
