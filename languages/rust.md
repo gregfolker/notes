@@ -809,6 +809,28 @@ fn main() {
 }
 ```
 
+```
+   Compiling playground v0.0.1 (/playground)
+error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+ --> src/main.rs:7:5
+  |
+3 |     let first_word = first_word(&s);
+  |                                 -- immutable borrow occurs here
+...
+7 |     s.clear();
+  |     ^^^^^^^^^ mutable borrow occurs here
+8 |
+9 |     println!("The first word of `s` is {}", first_word);
+  |                                             ---------- immutable borrow later used here
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0502`.
+error: could not compile `playground`
+
+To learn more, run the command again with --verbose.
+```
+
 **Now** this is a compiler error because Rust can enforce the borrowing rules that we have for
 mutable references! Because `clear()` needs to modify the contents of `s`, it needs a mutable
 reference of `s`. However, since we also need to use an immutable reference to pass `&s` into
